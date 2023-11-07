@@ -59,13 +59,13 @@ export const Combat: GameFunction = (x = 5, y = 5, players) => {
       players: playersObj
     }),
     moves: {...Movement},
-    turn: {
-      order: {
-        first: ({ G, ctx }) => 0,
-        next: ({ G, ctx }) => (ctx.playOrderPos + 1) % ctx.numPlayers,
-        playOrder: rollInitiative
-      },
-    },
+    // turn: {
+    //   order: {
+    //     first: ({ G, ctx }) => 0,
+    //     next: ({ G, ctx }) => (ctx.playOrderPos + 1) % ctx.numPlayers,
+    //     playOrder: rollInitiative
+    //   },
+    // },
     phases: {
       placeEnemies: {
         start: true,
