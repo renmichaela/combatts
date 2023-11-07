@@ -32,9 +32,9 @@ export default function Play()
 
   return (
     <>
-      <h1 className="mx-4 my-6 text-3xl">Combat TS</h1>
+      <h1 className="mx-4 my-4 text-3xl">Combat TS</h1>
       <div className="flex">
-        <div className="bg-[#ad86ef] h-screen pt-6 px-3 w-1/4">
+        <div className="bg-combat-purple h-screen pt-6 px-3 w-1/4">
           <Selector
             title="Rows"
             value={rows}
@@ -60,7 +60,7 @@ export default function Play()
             decrement={enemy.delPlayer}
           >{Object.values(enemies).map((player: Player, index: number) => <SelectorInput key={index} index={index} data={player.name} updater={enemy.renamePlayer} placeholder={`Enemy ${index + 1} name`} />)}</Selector>
         </div>
-        <div className="bg-[#86efad] h-screen p-6 w-3/4">
+        <div className="bg-combat-green h-screen p-6 w-3/4">
           <CombatClient x={cols} y={rows} />
         </div>
       </div>

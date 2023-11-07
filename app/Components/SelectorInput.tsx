@@ -18,7 +18,7 @@ export function SelectorInput({index, data, updater, placeholder}: SelectorInput
       type="text"
       value={data}
       onChange={(e) => updater(index, e.currentTarget.value)}
-      className="block mb-2 mx-auto p-2 rounded shadow-lg w-4/5"
+      className="block mb-2 mx-auto p-2 rounded drop-shadow w-4/5"
       placeholder={placeholder} />
   );
 };

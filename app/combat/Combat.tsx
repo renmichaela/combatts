@@ -1,6 +1,6 @@
-import type { BoardProps } from 'boardgame.io/react';
 import type { DefaultPluginAPIs, Game } from "boardgame.io";
 import Movement from '@/app/combat/Movement';
+import GameMoves from '@/app/combat/moves/GameMoves';
 
 interface BoardOptions {
   x: number;
@@ -33,6 +33,7 @@ export const Enemy = (health: number = 1): Player => ({
 // Equivalent of 'G'
 export interface CombatState {
   cells: Array<number|string>;
+  players: Record<string|number, Player>
 };
 
 type GameFunction = {
@@ -44,14 +45,9 @@ type GameFunction = {
 };
 
 export const Combat: GameFunction = (x = 5, y = 5, players) => {
-  const rollInitiative = (context: Record<string, unknown> & DefaultPluginAPIs) => {
-    return players.map((player, playerID) => ({
-      playerID,
-      roll: context.random.D20()
-    })).sort((a, b) => a.roll - b.roll).flatMap(obj => obj.playerID.toString());
-  };
   const cells = Array(x * y).fill(null);
   const playersObj = Object.fromEntries(players.map((player, i) => [i, player]))
+  const enemies = Object.values(playersObj).filter((player: Player) => player.type === "enemy").map((player: Player, i: number) => i.toString());
 
   return {
     setup: ({ ctx }) => {
@@ -62,19 +58,21 @@ export const Combat: GameFunction = (x = 5, y = 5, players) => {
         players: playersObj
       }
     },
-    moves: {...Movement},
+    moves: {...Movement, beginPlacingEnemies: GameMoves.beginPlacingEnemies},
     turn: {
       order: {
-        first: ({ G, ctx }) => 0,
-        next: ({ G, ctx }) => (ctx.playOrderPos + 1) % ctx.numPlayers,
-        playOrder: rollInitiative
+        first: () => 0,
+        next: ({ ctx }) => (ctx.playOrderPos + 1) % ctx.numPlayers,
+        playOrder: (context: DefaultPluginAPIs) => GameMoves.rollInitiative(context, players)
       },
     },
     phases: {
       placeEnemies: {
-        start: true,
         moves: {
           placeCharacter: Movement.placeCharacter
+        },
+        turn: {
+          activePlayers: enemies
         }
       }
     }

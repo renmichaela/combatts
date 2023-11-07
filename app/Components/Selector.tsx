@@ -17,9 +17,9 @@ const Selector = ({ title, value, increment, decrement, children }: SelectorProp
   return (
     <div className="mb-6">
       <div className="flex items-center justify-between mb-3">
-        <button className="bg-white py-1 px-3 rounded shadow" onClick={decrement}>-</button>
+        <button className="bg-white py-1 px-3 rounded drop-shadow" onClick={decrement}>-</button>
         <span>{title}: {displayValue()}</span>
-        <button className="bg-white py-1 px-3 rounded shadow" onClick={increment}>+</button>
+        <button className="bg-white py-1 px-3 rounded drop-shadow" onClick={increment}>+</button>
       </div>
       {children}
     </div>

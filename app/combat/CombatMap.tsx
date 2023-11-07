@@ -1,5 +1,6 @@
 import type { BoardProps } from 'boardgame.io/react';
 import type { CombatState } from './Combat';
+import GameMoves from '@/app/combat/moves/GameMoves';
 
 interface CombatProps extends BoardProps<CombatState> {
   x: number;
@@ -8,7 +9,8 @@ interface CombatProps extends BoardProps<CombatState> {
 
 export function CombatMap(props: CombatProps) {
   const cells = Array(props.x * props.y).fill(null);
-  const onClick = (id: number) => props.moves.placeCharacter(id);
+  const placeCharacter = (id: number) => props.moves.placeCharacter(id);
+  const placeEnemies = () => props.moves.beginPlacingEnemies();
   
   const cellStyle = {
     border: '1px solid #555',
@@ -31,7 +33,7 @@ export function CombatMap(props: CombatProps) {
             <button
               className="bg-slate-200 hover:bg-white"
               style={cellStyle}
-              onClick={() => onClick(id)}
+              onClick={() => placeCharacter(id)}
             />
           )}
         </td>
@@ -41,8 +43,9 @@ export function CombatMap(props: CombatProps) {
   }
 
   return (
-    <div className="bg-white inline-block">
-      <table id="board">
+    <div className="inline-block">
+      <button onClick={placeEnemies} className="bg-combat-orange mb-6 px-3 py-2 rounded-lg drop-shadow text-center w-full">Place Enemy Players</button>
+      <table className="bg-white" id="board">
         <tbody>{tbody}</tbody>
       </table>
     </div>
