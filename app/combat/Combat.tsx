@@ -48,16 +48,20 @@ export const Combat: GameFunction = (x = 5, y = 5, players) => {
     return players.map((player, playerID) => ({
       playerID,
       roll: context.random.D20()
-    })).sort((a, b) => a.roll - b.roll).flatMap(obj => obj.playerID);
+    })).sort((a, b) => a.roll - b.roll).flatMap(obj => obj.playerID.toString());
   };
   const cells = Array(x * y).fill(null);
   const playersObj = Object.fromEntries(players.map((player, i) => [i, player]))
 
   return {
-    setup: ({ G }) => ({
-      cells,
-      players: playersObj
-    }),
+    setup: ({ ctx }) => {
+      ctx.numPlayers = players.length;
+      
+      return {
+        cells,
+        players: playersObj
+      }
+    },
     moves: {...Movement},
     turn: {
       order: {
