@@ -34,7 +34,7 @@ export default function Play()
     <>
       <h1 className="mx-4 my-6 text-3xl">Combat TS</h1>
       <div className="flex">
-        <div className="w-1/4">
+        <div className="bg-[#ad86ef] h-screen pt-6 px-3 w-1/4">
           <Selector
             title="Rows"
             value={rows}
@@ -52,15 +52,17 @@ export default function Play()
             value={heroes}
             increment={hero.addPlayer}
             decrement={hero.delPlayer}
-          >{Object.values(heroes).map((player: Player, index: number) => <SelectorInput key={index} index={index} data={player.name} updater={hero.renamePlayer} />)}</Selector>
+          >{Object.values(heroes).map((player: Player, index: number) => <SelectorInput key={index} index={index} data={player.name} updater={hero.renamePlayer} placeholder={`Hero ${index + 1} name`} />)}</Selector>
           <Selector
             title="Enemies"
             value={enemies}
             increment={enemy.addPlayer}
             decrement={enemy.delPlayer}
-          >{Object.values(enemies).map((player: Player, index: number) => <SelectorInput key={index} index={index} data={player.name} updater={enemy.renamePlayer} />)}</Selector>
+          >{Object.values(enemies).map((player: Player, index: number) => <SelectorInput key={index} index={index} data={player.name} updater={enemy.renamePlayer} placeholder={`Enemy ${index + 1} name`} />)}</Selector>
         </div>
-        <CombatClient x={cols} y={rows} />
+        <div className="bg-[#86efad] h-screen p-6 w-3/4">
+          <CombatClient x={cols} y={rows} />
+        </div>
       </div>
     </>
   )

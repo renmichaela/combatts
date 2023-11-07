@@ -8,15 +8,17 @@ interface SelectorInputProps {
   index: number;
   data: string;
   updater: UpdaterFunction;
+  placeholder?: string;
 }
 
-export function SelectorInput({index, data, updater}: SelectorInputProps) {
+export function SelectorInput({index, data, updater, placeholder}: SelectorInputProps) {
   return (
     <input
       key={index}
       type="text"
       value={data}
       onChange={(e) => updater(index, e.currentTarget.value)}
-      className="block border-2 border-[#333] mb-2 mx-auto w-4/5" />
+      className="block mb-2 mx-auto p-2 rounded shadow-lg w-4/5"
+      placeholder={placeholder} />
   );
 };

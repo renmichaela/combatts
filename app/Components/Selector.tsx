@@ -12,34 +12,14 @@ interface SelectorProps {
 }
 
 const Selector = ({ title, value, increment, decrement, children }: SelectorProps) => {
-  const buttonStyle = {
-    padding: '0.5rem 1rem',
-  };
-
-  const divStyle = {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: '1rem'
-  }
-
-  const spanStyle = {
-    marginLeft: '2rem',
-    marginRight: '2rem',
-  };
-
-  const selectorStyle = {
-    marginBottom: '2rem'
-  };
-
   const displayValue = () => typeof value === 'number' ? value : Object.keys(value).length;
 
   return (
-    <div style={selectorStyle}>
-      <div style={divStyle}>
-        <button style={buttonStyle} onClick={decrement}>-</button>
-        <span style={spanStyle}>{title}: {displayValue()}</span>
-        <button style={buttonStyle} onClick={increment}>+</button>
+    <div className="mb-6">
+      <div className="flex items-center justify-between mb-3">
+        <button className="bg-white py-1 px-3 rounded shadow" onClick={decrement}>-</button>
+        <span>{title}: {displayValue()}</span>
+        <button className="bg-white py-1 px-3 rounded shadow" onClick={increment}>+</button>
       </div>
       {children}
     </div>

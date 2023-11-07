@@ -41,12 +41,10 @@ export function CombatMap(props: CombatProps) {
   }
 
   return (
-    <>
-      <div>
-        <table id="board">
-          <tbody>{tbody}</tbody>
-        </table>
-      </div>
-    </>
+    <div className="bg-white inline-block">
+      <table id="board">
+        <tbody>{tbody}</tbody>
+      </table>
+    </div>
   );
 }
